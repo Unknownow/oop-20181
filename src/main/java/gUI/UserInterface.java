@@ -133,7 +133,7 @@ public class UserInterface {
 		RelationshipGeneratorForDatabase r = new RelationshipGeneratorForDatabase();
 		r.generateRelationshipForDatabase(m);
 		long end = System.currentTimeMillis();
-		String output = new String("Repository " + repoID + " Successfully created " + n + " entites and " + m +
+		String output = new String("Repository " + repoID + ":\n"+ "Successfully created " + n + " entites and " + m +
 								   " relationships in " + (end - start) + "ms");
 		try {
 			writer.write(output);
