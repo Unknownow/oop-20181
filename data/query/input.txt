@@ -1,0 +1,48 @@
+prefix person: <person:>
+prefix event: <event:>
+prefix time: <time:>
+prefix country: <country:>
+prefix location: <location:>
+prefix organization: <organization:>
+prefix object: <object:>
+prefix pp: <pp:>
+prefix pe: <pe:>
+prefix pt: <pt:>
+prefix pc: <pc:>
+prefix pl: <pl:>
+prefix po: <po:>
+prefix ep: <ep:>
+prefix ee: <ee:>
+prefix et: <et:>
+prefix ec: <ec:>
+prefix el: <el:>
+prefix eo: <eo:>
+prefix tp: <tp:>
+prefix te: <te:>
+prefix tc: <tc:>
+prefix tl: <tl:>
+prefix to: <to:>
+prefix cp: <cp:>
+prefix cc: <cc:>
+prefix ce: <ce:>
+prefix cl: <cl:>
+prefix co: <co:>
+prefix ct: <ct:>
+prefix lp: <lp:>
+prefix le: <le:>
+prefix lc: <lc:>
+prefix lo: <lo:>
+prefix lt: <lt:>
+prefix ll: <ll:>
+prefix op: <op:>
+prefix oe: <oe:>
+prefix oc: <oc:>
+prefix ol: <ol:>
+prefix ot: <ot:> 
+prefix oo: <oo:> 
+
+
+select distinct * where{
+    ?country object:has_description ?description;
+    object:has_name "Afghanistan".
+}
