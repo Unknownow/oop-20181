@@ -1,0 +1,87 @@
+[1.	Những sự kiện diễn ra tại TP HCM vào năm 2018
+]select distinct ?name ?time where{  
+	?event el:diễn_ra_tại ?location;
+	object:has_name ?name;
+	et:tổ_chức_vào_ngày ?time.
+	?location object:has_name ?locName.
+	filter (strends(str(?time),'2018') && regex(str(?locName),'TP HCM'))
+}[
+[2.	Những tổ chức nào có chủ tịch là luật sư và trụ sở chính tại Hà Nội và TP HCM
+]select ?name ?locationName where{  
+	?organization op:có_chủ_tịch_là ?person;
+	object:has_name ?name;
+ 	ol:có_trụ_sở_chính_tại ?location.
+    ?location object:has_name ?locationName.
+	?person object:has_description 'luật sư'.
+    filter (regex(str(?locationName),'Hà Nội') || regex(str(?locationName),'TP HCM'))
+}[
+[3.	Những tổ chức nào có CEO là "Trần Tuấn Thành", sở hữu "Montpellier" và ngày thành lập của nó.
+]select distinct ?name ?time  where{  
+	?organization op:có_CEO_là ?person;
+	object:has_name ?name.
+    ?person object:has_name 'Trần Tuấn Thành'.
+    ?location lo:thuộc_sở_hữu_của ?organization;
+    object:has_name 'Montpellier'.
+    ?organization ot:được_thành_lập_vào ?time.
+}[
+[4.	Địa điểm diễn ra (là nơi sinh sống của Hoàng Hòa Mi) và tổ chức tài trợ cho sự kiện "Sự kiện sinh nhật 8 tuổi Hanoi Rock City" 
+]select distinct ?locationName ?organizationName where{  
+	?location le:là_nơi_diễn_ra_sự_kiện ?event;
+    object:has_name ?locationName.
+    ?event object:has_name 'Sự kiện sinh nhật 8 tuổi Hanoi Rock City'.
+    ?location lp:là_nơi_sinh_sống_của ?person.
+    ?person object:has_name 'Hoàng Hòa Mi'.
+    ?event eo:tài_trợ_bởi ?organization.
+    ?organization object:has_name ?organizationName
+}[
+[5.	Ông Trần Ngọc Quang tham dự những sự kiện nào năm 2018
+]select distinct ?name where{  
+	?person object:has_name 'Trần Ngọc Quang';  
+	pe:tham_dự_sự_kiện ?event.  
+	?event et:tổ_chức_vào_ngày ?time;
+	object:has_name ?name.  
+	filter strends(str(?time), str(2018)).
+}[
+[6.	Có bao nhiêu người tham gia mỗi sự kiện được tổ chức vào năm 2017
+]select distinct ?event (count(?person) as ?numOfP)  where{
+	?personID pe:tham_dự_sự_kiện ?eventID;
+	object:has_name ?person.
+	?eventID et:tổ_chức_vào_ngày ?time;
+	object:has_name ?event.
+	filter strends(str(?time), str(2017))
+}
+group by ?event[
+[7.	Tên những quốc gia trao thưởng cho Nhã Hà Anh vào năm 2017 và có đầu tư vào New York.
+]select distinct ?name ?time ?locationName where{  
+	?country cp:trao_thưởng ?person;
+	object:has_name ?name;
+	cl:đầu_tư ?location.
+	?location object:has_name ?locationName. 
+	?person object:has_name 'Nhã Hà Anh';
+    pt:đạt_được_danh_hiệu_thứ_nhất_vào ?time.
+    filter regex(str(?time),'2017')
+}[
+[8.	Những tổ chức nào tổ chức sự kiện bắt đầu vào tháng 2/2018
+]select distinct ?organizationName ?eventName ?time where{  
+	?organization oe:tổ_chức_sự_kiện ?event;
+	object:has_name ?organizationName.
+	?event et:bắt_đầu_vào_ngày ?time;
+	object:has_name ?eventName.
+	filter strends(str(?time),'2-2018')
+}[
+[9.	Huỳnh Lam Giang tham gia các sự kiện gì vào ngày nào của năm 2017
+]select distinct ?eventName ?time  where{  
+	?event et:tổ_chức_vào_ngày ?time;
+	object:has_name ?eventName.  
+    ?person pe:tham_dự_sự_kiện ?event;
+    object:has_name 'Huỳnh Lam Giang'.
+    filter regex(str(?time), '2017')  
+}[
+[10.	Các sự kiện tổ chức cùng năm 2018 tại địa điểm Schwangau.
+]select distinct ?eventName where{  
+	?event et:tổ_chức_vào_ngày ?time;
+	el:tổ_chức_tại ?location;
+	object:has_name ?eventName.
+	?location object:has_name ?name.
+	filter (regex(str(?name),'Schwangau') && regex(str(?time),'2018'))
+}[
