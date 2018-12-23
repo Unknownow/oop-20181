@@ -201,8 +201,8 @@ public class UserInterface {
 		repoButtonGroup.add(databaseButton3);
 		databaseButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setRepoID("E_60k_R_80k");
-				MainClass.connection = CreateConnection.getRepositoryConnection("E_60k_R_80k");
+				setRepoID("E_60K_R_80K");
+				MainClass.connection = CreateConnection.getRepositoryConnection("E_60K_R_80K");
 			}
 		});
 		databasePanel.add(databaseButton3);
