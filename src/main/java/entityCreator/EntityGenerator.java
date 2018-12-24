@@ -90,7 +90,7 @@ public class EntityGenerator {
 				
 				for(int j = 0 ; j < IDCounter; j++) {
 					// add newly created id to the id file in source
-					tempID = genTempID(i, j);	
+					tempID = new String(genTempID(i, j));	
 					idWriter.write(tempID + "\n");
 					model = addNewEntityToModel(tempID, i);
 					Connection.conn.add(model);
@@ -125,7 +125,7 @@ public class EntityGenerator {
 		// randomly pick a description
 		int tempDescriptionIndex = ThreadLocalRandom.current().nextInt(0, descriptionList.size());
 		tempDescription = new String(descriptionList.get(tempDescriptionIndex));
-		return builder.subject(prefix + ":" + tempID)
+		return builder.subject(prefix + tempID)
 		              .add("object:"+"has_name", nameList.get(indexOfName))
 		              .add("object:"+"has_description", tempDescription)
 		              .build();

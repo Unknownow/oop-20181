@@ -11,7 +11,7 @@ public class MatchNameAndDescriptionEntityGenerator extends EntityGenerator {
 	@Override
 	protected Model addNewEntityToModel(String tempID, int indexOfName)
 	{	
-		return builder.subject(prefix + ":" + tempID)
+		return builder.subject(prefix  + tempID)
 		              .add("object:"+"has_name", nameList.get(indexOfName))
 		              .add("object:"+"has_description", descriptionList.get(indexOfName))
 		              .build();

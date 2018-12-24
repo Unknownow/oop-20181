@@ -5,12 +5,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
 import org.eclipse.rdf4j.model.IRI;
 import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.impl.TreeModel;
-
 import graphdb.Connection;
 import utility.FileReaderAndWriter;
 import utility.IDReader;
@@ -75,8 +72,8 @@ public class RelationshipGenerator {
 		String dayExtracted = new String();
 		String act = new String();
 		IRI s, p, o, has_source;
-
-		try {
+		try
+		{
 			Connection.conn.begin();
 			while(num > 0) {
 				link = linkList.get(randomInt(0, linkList.size() - 1));
@@ -86,10 +83,10 @@ public class RelationshipGenerator {
 				obj = IDGen.genRandomID(objectType);
 				source = dayExtracted + " | " + link;
 				
-				s = SimpleValueFactory.getInstance().createIRI(subjectType + ":", subj);
-				o = SimpleValueFactory.getInstance().createIRI(objectType + ":", obj);
-				p = SimpleValueFactory.getInstance().createIRI(actionNamespace + ":", act);
-				has_source = SimpleValueFactory.getInstance().createIRI("object:has_source");
+				s = Connection.conn.getValueFactory().createIRI(subjectType + ":", subj);
+				o = Connection.conn.getValueFactory().createIRI(objectType + ":", obj);
+				p = Connection.conn.getValueFactory().createIRI(actionNamespace + ":", act);
+				has_source = Connection.conn.getValueFactory().createIRI("object:has_source");
 				model.add(s, p, o);
 				model.add(s, has_source, Connection.conn.getValueFactory().createLiteral(source));
 				model.add(o, has_source, Connection.conn.getValueFactory().createLiteral(source));
@@ -105,11 +102,11 @@ public class RelationshipGenerator {
 			Connection.conn.add(model);
 			Connection.conn.commit();
 		}
-		catch(Throwable e) {
+		catch (Throwable e) {
 			Connection.conn.rollback();
 			e.printStackTrace();
 		}
-		
+
 	}
 	
 	protected int randomInt(int min, int max)
